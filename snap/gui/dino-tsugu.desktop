@@ -1,1 +1,8 @@
-dsfdsfdsfdsf
+[Desktop Entry]
+Name=Dino
+Exec=dino-tsugu
+Icon=${SNAP}/meta/gui/dino-tsugu.png
+Comment=XMPP Messenger
+Terminal=false
+Type=Application
+MimeType=x-content/unix-software;
