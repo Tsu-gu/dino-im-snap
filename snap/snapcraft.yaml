@@ -18,7 +18,7 @@ apps:
     command: usr/bin/dino
     extensions: [gnome]
     environment:
-      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/usr/local/lib/x86_64-linux-gnu/:$SNAP/usr/local/lib/x86_64-linux-gnu/libdino:$SNAP/usr/local/lib/x86_64-linux-gnu/dino/plugins/:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libproxy
+      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libdino:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/dino/plugins/:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libproxy$LD_LIBRARY_PATH
       HOME: "$SNAP_USER_DATA"
     plugs:
       - home
@@ -44,6 +44,11 @@ parts:
       - ninja-build
 
     meson-parameters:
+      - "-Dplugin-notification-sound=enabled"
+      - "-Dplugin-rtp-h264=enabled"
+      - "-Dplugin-rtp-vaapi=enabled"
+      - "-Dplugin-rtp-vp9=enabled"
+      - "-Dplugin-rtp-msdk=enabled"
       - "--prefix=/usr"
       
     stage-packages:
