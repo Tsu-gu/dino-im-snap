@@ -1,0 +1,70 @@
+name: dino-tsugu
+base: core24
+version: '0.5.0'
+summary: XMPP
+description: |
+  IDK
+
+grade: stable
+confinement: strict
+
+lint:
+  ignore:
+    - classic
+    - library
+
+apps:
+  dino-tsugu:
+    command: usr/bin/dino
+    extensions: [gnome]
+    environment:
+      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/usr/local/lib/x86_64-linux-gnu/:$SNAP/usr/local/lib/x86_64-linux-gnu/libdino:$SNAP/usr/local/lib/x86_64-linux-gnu/dino/plugins/:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libproxy
+      HOME: "$SNAP_USER_DATA"
+    plugs:
+      - home
+      - removable-media
+      - network
+      - network-bind
+      - audio-playback
+      - x11
+      - wayland
+      - unity7
+      - desktop
+      - desktop-legacy
+      - password-manager-service
+      - network-status
+
+parts:
+  dino-tsugu:
+    source: https://github.com/dino/dino/releases/download/v0.5.0/dino-0.5.0.tar.gz
+    source-type: tar
+    plugin: meson
+    build-packages:
+      - meson
+      - ninja-build
+
+    meson-parameters:
+      - "--prefix=/usr"
+      
+    stage-packages:
+      - valac
+      - gettext
+      - libgee-0.8-dev
+      - libsqlite3-dev
+      - libgtk-4-dev
+      - libadwaita-1-0
+      - libgpgme-dev
+      - libsoup2.4-dev
+      - libgcrypt20-dev
+      - libqrencode-dev
+      - libgstreamer1.0-dev
+      - libgstreamer-plugins-base1.0-dev
+      - libwebrtc-audio-processing-dev
+      - libsrtp2-dev
+      - libnice-dev
+      - glib-networking
+      - gstreamer1.0-plugins-good
+      - libomemo-c-dev
+      - libadwaita-1-dev
+      - libproxy1v5
+    
