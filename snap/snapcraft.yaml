@@ -1,9 +1,9 @@
 name: dino-tsugu
 base: core24
 version: '0.5.0'
-summary: XMPP
+summary: XMPP messenger
 description: |
-  IDK
+  Dino is an XMPP messaging app for Linux using GTK and Vala. It supports calls, encryption, file transfers, group chats and more.
 
 grade: stable
 confinement: strict
@@ -13,12 +13,19 @@ lint:
     - classic
     - library
 
+slots:
+  dino-tsugu-dbus-service:
+    interface: dbus
+    bus: session
+    name: im.dino.Dino
+
 apps:
   dino-tsugu:
-    command: usr/bin/dino
+    command: main/dino
+    slots: [dino-tsugu-dbus-service]
     extensions: [gnome]
     environment:
-      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libdino:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/dino/plugins/:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libproxy$LD_LIBRARY_PATH
+      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libdino:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/dino/plugins/:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libproxy
       HOME: "$SNAP_USER_DATA"
     plugs:
       - home
@@ -36,21 +43,12 @@ apps:
 
 parts:
   dino-tsugu:
-    source: https://github.com/dino/dino/releases/download/v0.5.0/dino-0.5.0.tar.gz
+    source: https://github.com/dino/dino/releases/download/v${SNAPCRAFT_PROJECT_VERSION}/dino-${SNAPCRAFT_PROJECT_VERSION}.tar.gz
     source-type: tar
     plugin: meson
     build-packages:
       - meson
       - ninja-build
-
-    meson-parameters:
-      - "-Dplugin-notification-sound=enabled"
-      - "-Dplugin-rtp-h264=enabled"
-      - "-Dplugin-rtp-vaapi=enabled"
-      - "-Dplugin-rtp-vp9=enabled"
-      - "-Dplugin-rtp-msdk=enabled"
-      - "--prefix=/usr"
-      
     stage-packages:
       - valac
       - gettext
@@ -72,4 +70,20 @@ parts:
       - libomemo-c-dev
       - libadwaita-1-dev
       - libproxy1v5
-    
+    override-build: |
+      set -e
+      
+      cd $CRAFT_PART_SRC
+      
+      meson setup build \
+        -Dplugin-notification-sound=enabled \
+        -Dplugin-rtp-h264=enabled \
+        -Dplugin-rtp-vaapi=enabled \
+        -Dplugin-rtp-vp9=enabled \
+        -Dplugin-rtp-msdk=enabled
+      
+      meson compile -C build
+      
+      cp -r build/* $CRAFT_PART_INSTALL/
+      
+      ls -la $CRAFT_PART_INSTALL/
