@@ -13,6 +13,11 @@ lint:
     - classic
     - library
 
+
+platforms:
+  amd64:
+  arm64:
+
 slots:
   dino-tsugu-dbus-service:
     interface: dbus
