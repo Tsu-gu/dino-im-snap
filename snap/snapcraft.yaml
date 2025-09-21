@@ -45,6 +45,7 @@ apps:
       - desktop-legacy
       - password-manager-service
       - network-status
+      - gpg-keys
 
 parts:
   dino-tsugu:
