@@ -1,6 +1,6 @@
 name: dino-tsugu
 base: core24
-version: '0.5.0'
+version: '0.5.1'
 summary: XMPP messenger
 description: |
   Dino is an XMPP messaging app for Linux using GTK and Vala. It supports calls, encryption, file transfers, group chats and more.
