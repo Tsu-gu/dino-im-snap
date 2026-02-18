@@ -38,6 +38,7 @@ apps:
       - network
       - network-bind
       - audio-playback
+      - audio-record
       - x11
       - wayland
       - unity7
