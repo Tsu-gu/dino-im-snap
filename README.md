@@ -1,8 +1,9 @@
 # Changelog 
 
-18.2.2026 - Added the audio-record plug so users can enable and use the mic now
+**18.2.2026** - Added the audio-record plug so users can enable and use the mic now
 
 [![Get it from the Snap Store](https://snapcraft.io/en/dark/install.svg)](https://snapcraft.io/dino-tsugu)
+
 <img width="730" height="167" alt="image" src="https://github.com/user-attachments/assets/5eb34153-91b1-4842-9d1a-85cd0e247347" />
 
 <img width="1441" height="823" alt="image" src="https://github.com/user-attachments/assets/445ad21a-2992-4e05-8c4b-8c0ef753595c" />
